@@ -92,7 +92,6 @@ def load_user_data():
             one_rm_dict = {k: calculate_1rm(v, 5) for k, v in weights_dict.items()}
             goal = data.get("goal", "")
             user_options = data.get("options", user_options)
-    # Ensure days_per_week is set
     if "days_per_week" not in user_options or user_options["days_per_week"] not in workout_plans:
         user_options["days_per_week"] = 3
 
@@ -108,7 +107,6 @@ def load_workout_plans():
         with open("workout_plans.json", "r") as f:
             loaded = json.load(f)
             workout_plans = {int(k): v for k, v in loaded.items()}
-    # Always generate if missing or empty
     if not workout_plans.get(user_options["days_per_week"]):
         generate_weekly_plan()
     print("Loaded workout_plans:", workout_plans)
@@ -238,10 +236,10 @@ def landing():
     print(f"Landing page plans: {workout_plans[user_options['days_per_week']]}")
     return render_template('landing.html', plans=workout_plans[user_options["days_per_week"]], current_day=current_day)
 
-@app.route('/workout/<day>', methods=['GET', 'POST'])
+@app.route('/workout/<path:day>', methods=['GET', 'POST'])
 def workout(day):
     global feedback_data, movement_1rm_dict
-    print(f"Version 1.6 - Entering workout route with day: '{day}'")
+    print(f"Version 1.7 - Entering workout route with day: '{day}'")
     day = day.replace("%20", " ").strip()
     print(f"Processed day: '{day}'")
     print(f"Days per week: {user_options['days_per_week']}")
@@ -322,6 +320,6 @@ def debug():
     return "Debug route working", 200
 
 if __name__ == '__main__':
-    print("Starting app.py version 1.6")
+    print("Starting app.py version 1.7")
     port = int(os.environ.get("PORT", 5000))
     app.run(debug=False, host='0.0.0.0', port=port)
