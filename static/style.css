@@ -1,14 +1,8 @@
 /* static/style.css */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
-
 body {
-    background-color: #fff;
-    color: #000;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
     line-height: 1.6;
 }
 
@@ -16,14 +10,14 @@ body {
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
-    border: 1px solid #000;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 h1, h2 {
-    color: #000;
+    color: #2c3e50;
     margin-bottom: 15px;
-    border-bottom: 2px solid #000;
-    padding-bottom: 5px;
 }
 
 ul {
@@ -33,25 +27,17 @@ ul {
 
 li {
     padding: 5px 0;
-    border-bottom: 1px solid #ccc;
 }
 
 a {
-    color: #000;
+    color: #3498db;
     text-decoration: none;
-    font-weight: bold;
 }
 
 a:hover {
     text-decoration: underline;
 }
 
-canvas {
-    margin: 20px 0;
-    border: 1px solid #000;
-}
-
-/* For other pages */
 form {
     margin-top: 20px;
 }
@@ -59,17 +45,17 @@ form {
 input, select, button {
     padding: 8px;
     margin: 5px 0;
-    border: 1px solid #000;
-    background: #fff;
-    color: #000;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
 button {
-    background: #000;
+    background: #2ecc71;
     color: #fff;
+    border: none;
     cursor: pointer;
 }
 
 button:hover {
-    background: #333;
+    background: #27ae60;
 }

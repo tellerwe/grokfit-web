@@ -31,35 +31,16 @@
 <p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>{% endfor %}</span></p>
 <p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/ul&gt;</span></p>
 <p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>{% endif %}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>{% if dates %}</span></p>
 <p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;h2&gt;Progress Over Time&lt;/h2&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;canvas id="progressChart" width="400" height="200"&gt;&lt;/canvas&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>{% endif %}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;a href="{{ url_for('test') }}"&gt;Take the Test&lt;/a&gt; |<span class="Apple-converted-space"> </span></span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;p&gt;Dates: {{ dates }}&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;p&gt;Push: {{ progress.Push }}&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;p&gt;Pull: {{ progress.Pull }}&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;p&gt;Legs: {{ progress.Legs }}&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;p&gt;Core: {{ progress.Core }}&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;a href="{{ url_for('test') }}"&gt;Take the Test&lt;/a&gt; |</span></p>
 <p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;a href="{{ url_for('landing') }}"&gt;View Workout Plans&lt;/a&gt;</span></p>
 <p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.jsdelivr.net/npm/chart.js"&gt;&lt;/script&gt;</span></p>
 <p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script src="{{ url_for('static', filename='script.js') }}"&gt;&lt;/script&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.addEventListener('DOMContentLoaded', function() {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>{% if dates %}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>const ctx = document.getElementById('progressChart').getContext('2d');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>new Chart(ctx, {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>type: 'line',</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>data: {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>labels: {{ dates | tojson }},</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>datasets: [</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>{ label: 'Push', data: {{ progress.Push | tojson }}, borderColor: '#000', fill: false },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>{ label: 'Pull', data: {{ progress.Pull | tojson }}, borderColor: '#666', fill: false },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>{ label: 'Legs', data: {{ progress.Legs | tojson }}, borderColor: '#999', fill: false },</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>{ label: 'Core', data: {{ progress.Core | tojson }}, borderColor: '#ccc', fill: false }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>]</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>},</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>options: { scales: { y: { beginAtZero: true } } }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>});</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>{% endif %}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>});</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</span></p>
 <p class="p1"><span class="s1">&lt;/body&gt;</span></p>
 <p class="p1"><span class="s1">&lt;/html&gt;</span></p>
 </body>
