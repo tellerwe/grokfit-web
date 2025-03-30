@@ -204,12 +204,7 @@ def calculate_progress_over_time():
 
 @app.route('/')
 def welcome():
-    load_user_data()
-    load_workout_plans()
-    dates, progress = calculate_progress_over_time()
-    rendered = render_template('welcome.html', weights_dict=weights_dict, progress=progress, dates=dates)
-    print(f"Welcome response (first 100 chars): {rendered[:100]}")
-    return rendered
+    return "<html><body><h1>Test Render</h1><p>If this renders, we’re golden.</p></body></html>"
 
 @app.route('/test', methods=['GET', 'POST'])
 def test():
@@ -241,7 +236,7 @@ def landing():
 @app.route('/workout/<path:day>', methods=['GET', 'POST'])
 def workout(day):
     global feedback_data, movement_1rm_dict
-    print(f"Version 1.7.1 - Entering workout route with day: '{day}'")
+    print(f"Version 1.7.2 - Entering workout route with day: '{day}'")
     day = day.replace("%20", " ").strip()
     print(f"Processed day: '{day}'")
     print(f"Days per week: {user_options['days_per_week']}")
@@ -322,6 +317,6 @@ def debug():
     return "Debug route working", 200
 
 if __name__ == '__main__':
-    print("Starting app.py version 1.7.1")
+    print("Starting app.py version 1.7.2")
     port = int(os.environ.get("PORT", 5000))
     app.run(debug=False, host='0.0.0.0', port=port)
