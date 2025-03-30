@@ -1,40 +1,63 @@
-{% extends "base.html" %}
-{% block content %}
-<div class="card shadow p-4 mx-auto" style="max-width: 500px;">
-    <h2 class="text-center text-gradient">{{ day }}</h2>
-    <h5 class="text-muted">Warm-Up</h5>
-    {% for warmup in warmups %}
-    <p class="mb-1">{{ warmup }}: 10 reps</p>
-    {% endfor %}
-    <h5 class="text-muted mt-3">Main Workout</h5>
-    <form method="POST">
-        {% for movement in movements %}
-        <div class="card mb-3 shadow-sm">
-            <div class="card-body">
-                <h6>{{ movement.name }}: {{ movement.sets }}x{{ movement.reps }} 
-                    {% if movement.two_handle %}({{ movement.weight }} lbs total, {{ (movement.weight / 2)|round(1) }} lbs/side){% else %}({{ movement.weight }} lbs){% endif %}
-                </h6>
-                <select name="feedback_{{ movement.name }}" class="form-select mb-2" required>
-                    <option value="Way Too Easy">Way Too Easy</option>
-                    <option value="Too Easy">Too Easy</option>
-                    <option value="Just Right" selected>Just Right</option>
-                    <option value="Too Hard">Too Hard</option>
-                    <option value="Way Too Hard">Way Too Hard</option>
-                </select>
-                <div class="input-group">
-                    <input type="number" name="weight_{{ movement.name }}" class="form-control" step="0.1" placeholder="Actual">
-                    <span class="input-group-text">lbs</span>
-                </div>
-                <input type="hidden" name="rec_{{ movement.name }}" value="{{ movement.weight }}">
-            </div>
-        </div>
-        {% endfor %}
-        <h5 class="text-muted mt-3">Cool-Down</h5>
-        {% for cooldown in cooldowns %}
-        <p class="mb-1">{{ cooldown }}: 30s</p>
-        {% endfor %}
-        <button type="submit" class="btn btn-success w-100 mt-3 shadow">Workout Complete</button>
-    </form>
-    <a href="{{ url_for('landing') }}" class="btn btn-link w-100 mt-2">Back</a>
-</div>
-{% endblock %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.4">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000}
+    span.s1 {font-kerning: none}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;html lang="en"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;head&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;title&gt;{{ day }} - GrokFit&lt;/title&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;body&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="container"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;h1&gt;{{ day }}&lt;/h1&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;h2&gt;Warm-ups&lt;/h2&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;ul&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>{% for warmup in warmups %}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;li&gt;{{ warmup }}&lt;/li&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>{% endfor %}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/ul&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;h2&gt;Movements&lt;/h2&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;form method="POST"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>{% for movement in movements %}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;p&gt;{{ movement.name }}: {{ movement.sets }} sets of {{ movement.reps }} reps @ {{ movement.weight }} lbs&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;input type="hidden" name="rec_{{ movement.name }}" value="{{ movement.weight }}"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;label&gt;Feedback:&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;select name="feedback_{{ movement.name }}"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;option value="Way Too Easy"&gt;Way Too Easy&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;option value="Too Easy"&gt;Too Easy&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;option value="Just Right" selected&gt;Just Right&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;option value="Too Hard"&gt;Too Hard&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;option value="Way Too Hard"&gt;Way Too Hard&lt;/option&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/select&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;label&gt;Actual Weight:&lt;/label&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;input type="text" name="weight_{{ movement.name }}" placeholder="Enter weight used"&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>{% endfor %}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;button type="submit"&gt;Submit Feedback&lt;/button&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/form&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;h2&gt;Cooldowns&lt;/h2&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;ul&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>{% for cooldown in cooldowns %}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;li&gt;{{ cooldown }}&lt;/li&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>{% endfor %}</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/ul&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;a href="{{ url_for('landing') }}"&gt;Back to Plans&lt;/a&gt;</span></p>
+<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+</body>
+</html>
