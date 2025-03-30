@@ -1,0 +1,62 @@
+[
+    {
+        "date": "2025-03-29 16:31:43",
+        "day": "Day 1 - Push",
+        "goal": "Build Muscle",
+        "duration": "30 minutes",
+        "movements": {
+            "Cable Chest Press": {
+                "feedback": "Way Too Hard",
+                "actual_weight": "",
+                "recommended_weight": 176.0
+            },
+            "Tricep Pushdown": {
+                "feedback": "Just Right",
+                "actual_weight": "",
+                "recommended_weight": 62.0
+            },
+            "Cable Incline Press": {
+                "feedback": "Just Right",
+                "actual_weight": "",
+                "recommended_weight": 176.0
+            },
+            "Cable Chest Fly": {
+                "feedback": "Just Right",
+                "actual_weight": "",
+                "recommended_weight": 176.0
+            }
+        }
+    },
+    {
+        "date": "2025-03-29 16:44:46",
+        "day": "Day 2 - Pull",
+        "goal": "Build Muscle",
+        "duration": "30 minutes",
+        "movements": {
+            "Lat Pulldown": {
+                "feedback": "Just Right",
+                "actual_weight": "",
+                "recommended_weight": 88.0,
+                "new_1rm": 116.66666666666667
+            },
+            "Bicep Curl": {
+                "feedback": "Just Right",
+                "actual_weight": "",
+                "recommended_weight": 54.0,
+                "new_1rm": 35.0
+            },
+            "Seated Row": {
+                "feedback": "Just Right",
+                "actual_weight": "",
+                "recommended_weight": 150.0,
+                "new_1rm": 99.16666666666667
+            },
+            "Reverse Fly": {
+                "feedback": "Just Right",
+                "actual_weight": "",
+                "recommended_weight": 150.0,
+                "new_1rm": 99.16666666666667
+            }
+        }
+    }
+]

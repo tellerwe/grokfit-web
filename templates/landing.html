@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card shadow p-4 mx-auto" style="max-width: 500px;">
+    <h2 class="text-center text-gradient">This Week's Plan</h2>
+    {% for day, movements in plans.items() %}
+    <div class="card mb-3 shadow-sm {% if day == current_day %}border-primary{% endif %}">
+        <div class="card-body">
+            <h5>{{ day }}</h5>
+            <ul class="list-unstyled">
+                {% for movement in movements %}
+                <li>{{ movement }}</li>
+                {% endfor %}
+            </ul>
+            {% if day == current_day %}
+            <a href="{{ url_for('workout', day=day) }}" class="btn btn-primary w-100 shadow">Go to Workout</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+    <a href="{{ url_for('welcome') }}" class="btn btn-link w-100">Back</a>
+</div>
+{% endblock %}

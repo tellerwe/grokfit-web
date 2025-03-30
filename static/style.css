@@ -1,0 +1,48 @@
+body {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+    min-height: 100vh;
+}
+
+.text-gradient {
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    border: none;
+    transition: transform 0.2s;
+}
+
+.btn-primary:hover {
+    transform: scale(1.05);
+}
+
+.btn-success {
+    background: linear-gradient(45deg, #45b7d1, #96ceb4);
+    border: none;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.form-control, .form-select {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: #fff;
+}
+
+.form-control::placeholder {
+    color: #ccc;
+}
+
+.shadow {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2) !important;
+}

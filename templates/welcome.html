@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="text-center">
+    <h1 class="display-4 text-gradient">GrokFit</h1>
+    <p class="lead text-muted">Your fitness journey starts here.</p>
+    {% if not weights_dict %}
+    <a href="{{ url_for('test') }}" class="btn btn-primary btn-lg mt-3 shadow">Get Started</a>
+    {% else %}
+    <a href="{{ url_for('landing') }}" class="btn btn-success btn-lg mt-3 shadow">Continue</a>
+    <a href="{{ url_for('test') }}" class="btn btn-outline-primary btn-lg mt-3 shadow">Retest</a>
+    <div class="mt-4">
+        <h3 class="text-white">Strength Progress</h3>
+        <canvas id="progressChart" class="mx-auto" style="max-width: 100%; height: 300px;"></canvas>
+    </div>
+    {% endif %}
+</div>
+<script>
+    const ctx = document.getElementById('progressChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: {{ dates|tojson }},
+            datasets: [
+                { label: 'Push', data: {{ progress.Push|tojson }}, borderColor: '#FF6B6B', fill: false },
+                { label: 'Pull', data: {{ progress.Pull|tojson }}, borderColor: '#4ECDC4', fill: false },
+                { label: 'Legs', data: {{ progress.Legs|tojson }}, borderColor: '#45B7D1', fill: false },
+                { label: 'Core', data: {{ progress.Core|tojson }}, borderColor: '#96CEB4', fill: false }
+            ]
+        },
+        options: { responsive: true, scales: { y: { beginAtZero: true } } }
+    });
+</script>
+{% endblock %}

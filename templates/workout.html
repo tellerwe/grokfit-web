@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card shadow p-4 mx-auto" style="max-width: 500px;">
+    <h2 class="text-center text-gradient">{{ day }}</h2>
+    <h5 class="text-muted">Warm-Up</h5>
+    {% for warmup in warmups %}
+    <p class="mb-1">{{ warmup }}: 10 reps</p>
+    {% endfor %}
+    <h5 class="text-muted mt-3">Main Workout</h5>
+    <form method="POST">
+        {% for movement in movements %}
+        <div class="card mb-3 shadow-sm">
+            <div class="card-body">
+                <h6>{{ movement.name }}: {{ movement.sets }}x{{ movement.reps }} 
+                    {% if movement.two_handle %}({{ movement.weight }} lbs total, {{ (movement.weight / 2)|round(1) }} lbs/side){% else %}({{ movement.weight }} lbs){% endif %}
+                </h6>
+                <select name="feedback_{{ movement.name }}" class="form-select mb-2" required>
+                    <option value="Way Too Easy">Way Too Easy</option>
+                    <option value="Too Easy">Too Easy</option>
+                    <option value="Just Right" selected>Just Right</option>
+                    <option value="Too Hard">Too Hard</option>
+                    <option value="Way Too Hard">Way Too Hard</option>
+                </select>
+                <div class="input-group">
+                    <input type="number" name="weight_{{ movement.name }}" class="form-control" step="0.1" placeholder="Actual">
+                    <span class="input-group-text">lbs</span>
+                </div>
+                <input type="hidden" name="rec_{{ movement.name }}" value="{{ movement.weight }}">
+            </div>
+        </div>
+        {% endfor %}
+        <h5 class="text-muted mt-3">Cool-Down</h5>
+        {% for cooldown in cooldowns %}
+        <p class="mb-1">{{ cooldown }}: 30s</p>
+        {% endfor %}
+        <button type="submit" class="btn btn-success w-100 mt-3 shadow">Workout Complete</button>
+    </form>
+    <a href="{{ url_for('landing') }}" class="btn btn-link w-100 mt-2">Back</a>
+</div>
+{% endblock %}
