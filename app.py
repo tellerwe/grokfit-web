@@ -92,6 +92,9 @@ def load_user_data():
             one_rm_dict = {k: calculate_1rm(v, 5) for k, v in weights_dict.items()}
             goal = data.get("goal", "")
             user_options = data.get("options", user_options)
+    # Ensure days_per_week is set
+    if "days_per_week" not in user_options or user_options["days_per_week"] not in workout_plans:
+        user_options["days_per_week"] = 3
 
 def save_workout_plans():
     clean_plans = {int(k): v for k, v in workout_plans.items()}
@@ -105,6 +108,7 @@ def load_workout_plans():
         with open("workout_plans.json", "r") as f:
             loaded = json.load(f)
             workout_plans = {int(k): v for k, v in loaded.items()}
+    # Always generate if missing or empty
     if not workout_plans.get(user_options["days_per_week"]):
         generate_weekly_plan()
     print("Loaded workout_plans:", workout_plans)
@@ -157,7 +161,7 @@ def calculate_progress_over_time():
     push_movements = ["Cable Chest Press", "Cable Incline Press", "Cable Decline Press", "Cable Chest Fly", "Shoulder Press", "Tricep Pushdown", "Lateral Raise", "Front Raise", "Upright Row", "Push-up", "Dips"]
     pull_movements = ["Lat Pulldown", "Wide Grip Lat Pulldown", "Straight-Arm Pulldown", "Seated Row", "Single-Arm Row", "Face Pull", "Reverse Fly", "Bicep Curl", "Hammer Curl", "Concentration Curl"]
     leg_movements = ["Squat", "Front Squat", "Goblet Squat", "Lunge", "Reverse Lunge", "Split Squat", "Cable Deadlift", "Romanian Deadlift", "Hip Abduction", "Hip Adduction", "Glute Kickback", "Bodyweight Squat"]
-    core_movements = ["Cable anytimeCrunch", "Woodchopper", "Pallof Press", "Plank"]
+    core_movements = ["Cable Crunch", "Woodchopper", "Pallof Press", "Plank"]
     progress = {"Push": [], "Pull": [], "Legs": [], "Core": []}
     last_values = {"Push": 0, "Pull": 0, "Legs": 0, "Core": 0}
     dates = []
@@ -237,18 +241,18 @@ def landing():
 @app.route('/workout/<day>', methods=['GET', 'POST'])
 def workout(day):
     global feedback_data, movement_1rm_dict
-    print(f"Version 1.5 - Entering workout route with day: '{day}'")
-    print(f"Request from: {request.remote_addr}")
+    print(f"Version 1.6 - Entering workout route with day: '{day}'")
+    day = day.replace("%20", " ").strip()
+    print(f"Processed day: '{day}'")
+    print(f"Days per week: {user_options['days_per_week']}")
+    print(f"Available plans: {workout_plans[user_options['days_per_week']]}")
     try:
         load_workout_plans()
-        day = day.replace("%20", " ").strip()
-        print(f"Requested day after decode: '{day}'")
-        print(f"Current workout_plans[{user_options['days_per_week']}]: {workout_plans[user_options['days_per_week']]}")
         if day not in workout_plans[user_options["days_per_week"]]:
             generate_weekly_plan()
-            print(f"After regen, workout_plans[{user_options['days_per_week']}]: {workout_plans[user_options['days_per_week']]}")
+            print(f"After regen: {workout_plans[user_options['days_per_week']]}")
             if day not in workout_plans[user_options["days_per_week"]]:
-                return f"Workout not found for '{day}'. Available days: {list(workout_plans[user_options['days_per_week']].keys())}", 404
+                return f"Workout not found for '{day}'. Available: {list(workout_plans[user_options['days_per_week']].keys())}", 404
         if request.method == 'POST':
             feedback_data = {}
             for movement in workout_plans[user_options["days_per_week"]][day]:
@@ -318,7 +322,6 @@ def debug():
     return "Debug route working", 200
 
 if __name__ == '__main__':
-    print("Starting app.py version 1.5")
-    # For Render: use env port, default to 5000 locally
+    print("Starting app.py version 1.6")
     port = int(os.environ.get("PORT", 5000))
     app.run(debug=False, host='0.0.0.0', port=port)
